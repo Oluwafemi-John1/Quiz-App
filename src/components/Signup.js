@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import * as yup from 'yup'
 
 const Signup = () => {
+    let lower = new RegExp(`(?=.*[a-z])`);
+    let upper = new RegExp(`(?=.*[A-Z])`);
+    let number = new RegExp(`(?=.*[0-9])`);
+    let length = new RegExp(`(?=.{8,})`)
     const formik = useFormik({
         initialValues:{
             firstname:"",
@@ -24,7 +28,7 @@ const Signup = () => {
             firstname:yup.string().matches(/^[\w]{2,}$/,"Must be at least 2 characters").required("This field is required"),
             lastname:yup.string().matches(/^[\w]{2,}$/,"Must be at least 2 characters").required("This field is required"),
             email:yup.string().email("Must be a valid email").required("This field is required"),
-            password:yup.string().matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/, "Must include at least 1 uppercase and lowercase letter. Must include a number and should not be less than 8 characters").required("This field is required")
+            password:yup.string().matches(lower,"Must include lowercase letter").matches(upper,"Must include uppercase letter").matches(number,"Must include a number").matches(length,"Must not be less than 8 characters").required("This field is required")
         })
     })
 
@@ -38,7 +42,7 @@ const Signup = () => {
 							<input
 								type="text"
                                 title='Enter you first name'
-								className={formik.errors.firstname?"form-control my-2 is-invalid" : "form-control my-2 is-valid"}
+								className={formik.errors.firstname?"form-control my-2 is-invalid" : "form-control my-2"}
 								name="firstname"
 								placeholder="First Name"
                                 onChange={formik.handleChange}
