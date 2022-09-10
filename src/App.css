@@ -39,7 +39,7 @@
 
 #toggle {
     display: block !important;
-    transform: translate(920px,-53px);
+    transform: translate(680px,-53px);
     font-size: 20px;
 }
 
@@ -62,6 +62,7 @@ body {
 nav {
     background-color: #3E0748;
 }
+
 body{
     min-height: 100vh;
     background: #150019;
@@ -147,7 +148,7 @@ body{
 }
 
 #logo {
-    margin-left: 14px;
+    margin-left: 12px;
 }
 ul#nav-mobile {
     margin-right: 90px;
@@ -159,5 +160,15 @@ ul#nav-mobile {
     .navigation.active{
        left: 0px; 
        width: 100%;
+    }
+    #logo {
+        transform: translateX(-125px);
+    }
+    ul#nav-mobile {
+        display: block !important;
+        transform: translateX(40px);
+    }
+    .toggle{
+        height: 55px;
     }
 }

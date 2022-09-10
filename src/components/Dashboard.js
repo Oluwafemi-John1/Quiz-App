@@ -1,6 +1,7 @@
 import React,{useRef} from 'react'
 import { Link } from 'react-router-dom'
-import mylogo from "../assets/mylogo.svg"
+import mylogo from "../assets/Screenshot 2022-09-10 140609.png"
+import logoname from "../assets/Screenshot 2022-09-10 141710.png"
 
 const Dashboard = () => {
     const navigation = useRef();
@@ -14,7 +15,7 @@ const Dashboard = () => {
     <>
         <nav>
             <div className="nav-wrapper">
-            <div id='logo'><Link to="/" className="brand-logo"><img src={mylogo} width={40} alt="" /></Link></div>
+            <div id='logo'><Link to="/" className="brand-logo"><img style={{borderRadius:"35px"}} src={mylogo} width={42} alt="" /><img src={logoname} alt="" width={70} /></Link></div>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
                 <li><Link to="/signup">Register account</Link></li>
                 <li><Link to="/signin">Sign in</Link></li>

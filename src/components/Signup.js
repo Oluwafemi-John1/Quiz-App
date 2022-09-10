@@ -2,6 +2,8 @@ import { useFormik } from 'formik';
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
+import mylogo from "../assets/Screenshot 2022-09-10 140609.png"
+import logoname from "../assets/Screenshot 2022-09-10 141710.png"
 
 const Signup = () => {
     const toggle = useRef();
@@ -51,10 +53,20 @@ const Signup = () => {
 
   return (
 		<>
+        <nav>
+            <div className="nav-wrapper">
+            <div id='logo'><Link to="/" className="brand-logo"><img style={{borderRadius:"35px"}} src={mylogo} width={42} alt="" /><img src={logoname} alt="" width={70} /></Link></div>
+            <ul id="nav-mobile" className="right hide-on-med-and-down">
+                <li><Link to="/signup">Register account</Link></li>
+                <li><Link to="/signin">Sign in</Link></li>
+            </ul>
+            </div>
+        </nav>
+
 			<div className="container-fluid">
 				<div className="row mt-5">
-					<div className="col-8 shadow mx-auto px-4">
-						<h1 className="text-center my-2">Sign Up</h1>
+					<div className="col-lg-6 bg-light shadow mx-auto px-4 mt-5">
+						<h2 className="text-center my-2" style={{color:"#3E0748"}}>Sign Up</h2>
 						<form action="" onSubmit={formik.handleSubmit}>
 							<input
 								type="text"
@@ -102,11 +114,13 @@ const Signup = () => {
                             <div id="toggle" ref={toggle} onClick={showHide}><i ref={i} className="fa fa-eye" aria-hidden="true"></i></div>
                            </div>
 
-                            <button className="btn btn-info w-100 my-2" type='submit'>Submit</button>
+                            <button className="btn btn-info w-100 my-2 text-light" type='submit' style={{backgroundColor:"#3E0748"}}>Submit</button>
 						</form>
-                        <button className='btn btn-danger my-2 w-25' type='reset' onClick={formik.handleReset}>Reset</button>
 
-                        <small className='ms-4'>Already have an account? Sign in <Link to='/signin'>here</Link></small>
+                        <div className='my-3'>
+                        <button className='btn btn-danger my-2 w-25' type='reset' onClick={formik.handleReset} style={{backgroundColor:"red"}}>Reset</button>
+                        <small className='ms-4 fs-6'>Already have an account? <Link className='fw-bold' style={{color:"#3E0748"}} to='/signin'>Sign in</Link></small>
+                        </div>
 					</div>
 				</div>
 			</div>
