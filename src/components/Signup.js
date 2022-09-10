@@ -1,13 +1,30 @@
 import { useFormik } from 'formik';
-import React from 'react'
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import * as yup from 'yup'
+import * as yup from 'yup';
 
 const Signup = () => {
+    const toggle = useRef();
+    const i = useRef();
+    const password = useRef();
+
+    const showHide = () => {
+        if (password.current.type === 'password') {
+            password.current.setAttribute('type','text');
+            toggle.current.classList.add('hide');
+            i.current.classList = "fa fa-eye-slash"
+        }
+        else {
+            password.current.setAttribute('type', 'password')
+            i.current.classList = "fa fa-eye"
+            toggle.current.classList.remove('hide')
+        }
+    }
+
     let lower = new RegExp(`(?=.*[a-z])`);
     let upper = new RegExp(`(?=.*[A-Z])`);
     let number = new RegExp(`(?=.*[0-9])`);
-    let length = new RegExp(`(?=.{8,})`)
+    let length = new RegExp(`(?=.{8,})`);
     const formik = useFormik({
         initialValues:{
             firstname:"",
@@ -53,7 +70,7 @@ const Signup = () => {
                             <input
 								type="text"
                                 title='Enter you last name'
-                                className={formik.errors.lastname?"form-control my-2 is-invalid" : "form-control my-2 is-valid"}
+                                className={formik.errors.lastname?"form-control my-2 is-invalid" : "form-control my-2"}
 								name="lastname"
 								placeholder="Last Name"
                                 onChange={formik.handleChange}
@@ -63,7 +80,7 @@ const Signup = () => {
                             {formik.touched.lastname && <small className='text-danger'>{formik.errors.lastname}</small>}
                             <input
 								type="email"
-                                className={formik.errors.email?"form-control my-2 is-invalid" : "form-control my-2 is-valid"}
+                                className={formik.errors.email?"form-control my-2 is-invalid" : "form-control my-2"}
 								name="email"
 								placeholder="Email"
                                 onChange={formik.handleChange}
@@ -71,21 +88,25 @@ const Signup = () => {
                                 onBlur={formik.handleBlur}
 							/>
                             {formik.touched.email && <small className='text-danger'>{formik.errors.email}</small>}
+                           <div>
                             <input
-								type="password"
-                                className={formik.errors.password?"form-control my-2 is-invalid" : "form-control my-2 is-valid"}
-								name="password"
-								placeholder="Password"
+                                type="password"
+                                className={formik.errors.password?"form-control my-2 is-invalid" : "form-control my-2"}
+                                name="password"
+                                placeholder="Password"
                                 onChange={formik.handleChange}
                                 value={formik.values.password}
-                                onBlur={formik.handleBlur}
-							/>
+                                onBlur={formik.handleBlur} ref={password}
+                            />
                             {formik.touched.password && <small className='text-danger'>{formik.errors.password}</small>}
+                            <div id="toggle" ref={toggle} onClick={showHide}><i ref={i} className="fa fa-eye" aria-hidden="true"></i></div>
+                           </div>
+
                             <button className="btn btn-info w-100 my-2" type='submit'>Submit</button>
 						</form>
                         <button className='btn btn-danger my-2 w-25' type='reset' onClick={formik.handleReset}>Reset</button>
 
-                        <small className='ms-4'>Already have an account? Sign in <Link to='/'>here</Link></small>
+                        <small className='ms-4'>Already have an account? Sign in <Link to='/signin'>here</Link></small>
 					</div>
 				</div>
 			</div>
