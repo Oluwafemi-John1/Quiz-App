@@ -19,7 +19,7 @@ const Home = () => {
         <section className='container-fluid'>
             <div className="row">
                 <div className='mt-5' align="center">
-                    <img style={{borderRadius:"200px"}} id="biglogo" className="" width={400} src={mylogo} alt="" />
+                    <img style={{borderRadius:"200px"}} id="biglogo" className="" width={300} src={mylogo} alt="" />
                 </div>
             </div>
         </section>
