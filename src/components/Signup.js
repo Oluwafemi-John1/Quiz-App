@@ -1,11 +1,23 @@
 import { useFormik } from 'formik';
-import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import mylogo from "../assets/Screenshot 2022-09-10 140609.png"
 import logoname from "../assets/Screenshot 2022-09-10 141710.png"
 
+
 const Signup = () => {
+    const Navigate = useNavigate();
+    useEffect(()=>{
+        if(localStorage.quiz) {
+            setGame(JSON.parse(localStorage.getItem("quiz")))
+        } else {
+            setGame([])
+        }
+    }, [])
+
+    const [Game, setGame] = useState([])
+
     const toggle = useRef();
     const i = useRef();
     const password = useRef();
@@ -36,6 +48,11 @@ const Signup = () => {
         },
 
         onSubmit:(values)=> {
+            let allGame = Game.push(values)
+            setGame(allGame)
+            console.log(Game);
+            localStorage.setItem("quiz", JSON.stringify(Game))
+            Navigate("/signin")
             console.log(values);
         },
 

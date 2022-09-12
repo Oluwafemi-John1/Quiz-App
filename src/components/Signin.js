@@ -1,11 +1,15 @@
 import { useFormik } from 'formik';
-import React, { useRef } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useRef, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup'
 import mylogo from "../assets/Screenshot 2022-09-10 140609.png"
 import logoname from "../assets/Screenshot 2022-09-10 141710.png"
 
 const Signin = () => {
+    let receive = JSON.parse(localStorage.getItem("quiz"));
+    const navigate = useNavigate();
+    const [userLogin, setuserLogin] = useState([]);
+    const [message, setmessage] = useState("");
     const toggle = useRef();
     const i = useRef();
     const password = useRef();
@@ -29,14 +33,24 @@ const Signin = () => {
     let length = new RegExp(`(?=.{8,})`);
     const formik = useFormik({
         initialValues:{
-            firstname:"",
-            lastname:"",
             email:"",
             password:""
         },
 
         onSubmit:(values)=> {
-            console.log(values);
+            // console.log(values);
+            receive.find((items) => {
+                if (items.email === values.email && items.password === values.password) {
+                    if (values.email !== "" && values.password !== "") {
+                        setuserLogin(userLogin.push(values))
+                        localStorage.login = JSON.stringify(userLogin)
+                        console.log(localStorage.login);
+                        navigate("/user")
+                    }
+                } else {
+                    setmessage("Invalid login details")
+                }
+            })
         },
 
         onReset:(values)=> {
@@ -44,8 +58,6 @@ const Signin = () => {
         },
 
         validationSchema:yup.object({
-            firstname:yup.string().matches(/^[\w]{2,}$/,"Must be at least 2 characters").required("This field is required"),
-            lastname:yup.string().matches(/^[\w]{2,}$/,"Must be at least 2 characters").required("This field is required"),
             email:yup.string().email("Must be a valid email").required("This field is required"),
             password:yup.string().matches(lower,"Must include lowercase letter").matches(upper,"Must include uppercase letter").matches(number,"Must include a number").matches(length,"Must not be less than 8 characters").required("This field is required")
         })
@@ -71,7 +83,7 @@ const Signin = () => {
 					<form action="" onSubmit={formik.handleSubmit}>
                         <input
 						    type="email"
-                            className={formik.errors.email?"form-control my-2 is-invalid" : "form-control my-2"}
+                            className={formik.errors.email?"my-2 is-invalid" : "form-control my-2"}
 							name="email"
 							placeholder="Email"
                             onChange={formik.handleChange}
@@ -81,7 +93,7 @@ const Signin = () => {
                         {formik.touched.email && <small className='text-danger'>{formik.errors.email}</small>}
                         <input
 							type="password"
-                            className={formik.errors.password?"form-control my-2 is-invalid" : "form-control my-2"}
+                            className={formik.errors.password?"my-2 is-invalid" : "form-control my-2"}
 							name="password"
 							placeholder="Password"
                             onChange={formik.handleChange}
@@ -89,6 +101,7 @@ const Signin = () => {
                             onBlur={formik.handleBlur}
 						/>
                         {formik.touched.password && <small className='text-danger'>{formik.errors.password}</small>}
+                        <div className='text-danger text-center'>{message}</div>
                         <div id="toggle" ref={toggle} onClick={showHide}><i ref={i} className="fa fa-eye" aria-hidden="true"></i></div>
                         <button style={{backgroundColor:"#3E0748"}} className="btn text-light w-100 my-2" type='submit'>Submit</button>
 					</form>
