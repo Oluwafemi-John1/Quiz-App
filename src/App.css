@@ -182,4 +182,7 @@ ul#nav-mobile {
     #toggle {
     transform: translate(250px,-50px);
     }
+    #biglogo {
+        width: 150px;
+    }
 }
