@@ -44,7 +44,7 @@ const Signin = () => {
                     if (values.email !== "" && values.password !== "") {
                         setuserLogin(userLogin.push(values))
                         localStorage.login = JSON.stringify(userLogin)
-                        console.log(localStorage.login);
+                        // console.log(localStorage.login);
                         navigate("/user")
                     }
                 } else {
@@ -108,8 +108,9 @@ const Signin = () => {
 
                     <div className='my-3'>
                     <button className='btn btn-danger my-2 w-25' style={{backgroundColor:"red"}} type='reset' onClick={formik.handleReset}>Reset</button>
-                    <small className='ms-4 fs-6'>New to Pop the Question? <Link to='/signup' className='fw-bold' style={{color:"#3E0748"}} >Sign up</Link></small>
+                    <small className='ms-4 fs-6'>New to <img src={mylogo} width={30} alt="" /><b>?,</b>&nbsp;<Link to='/signup' className='fw-bold' style={{color:"#3E0748"}} >Sign up</Link></small>
                     </div>
+                    <marquee className='text-center'><small>Please reload this page if you are having any trouble logging in</small></marquee>
 				</div>
 			</div>
 		</div>

@@ -4,8 +4,8 @@ import mylogo from "../assets/Screenshot 2022-09-10 140609.png"
 import logoname from "../assets/Screenshot 2022-09-10 141710.png"
 
 const User = () => {
-    let firstname = JSON.parse(localStorage.login)[2]
-    console.log(firstname);
+    let firstname = JSON.parse(localStorage.login)[0].email
+    // console.log(firstname);
     const navigation = useRef();
     const toggle = useRef();
     const navigate = useNavigate()
@@ -27,7 +27,7 @@ const User = () => {
             <ul id="nav-mobile" className="right hide-on-med-and-down">
                 <li><Link to="/signup">Register account</Link></li>
                 <li><Link to="/signin">Sign in</Link></li>
-                <li><Link to="/signin" onClick={logout} className='text-danger'>Log out</Link></li>
+                {/* <li><Link to="/signin" onClick={logout} className='text-danger'>Log out</Link></li> */}
             </ul>
             </div>
         </nav>
@@ -80,8 +80,8 @@ const User = () => {
         </div>
         <div className="toggle" ref={toggle} onClick={toggleMenu}></div>
 
-        <div className="container border border-warning">
-            <h1 className='text-center'>Welcome {firstname}</h1>
+        <div className="container mt-2">
+            <p className='text-center text-warning'>Welcome {firstname}</p>
         </div>
     </>
   )
