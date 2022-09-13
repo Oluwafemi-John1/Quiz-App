@@ -82,6 +82,48 @@ const User = () => {
 
         <div className="container mt-2">
             <p className='text-center text-warning'>Welcome {firstname}</p>
+            <div className="container-fluid mt-lg-5">
+                <div className="row mx-auto my-2">
+                    <div className="col-lg border border-light mx-lg-3 text-light rounded-5 my-2">
+                        <Link to="/user" className='text-light'>
+                            <h6 className='text-center'>Take a Quiz</h6>
+                            <p className='text-center fs-2'>Random Question</p>
+                            <center><small>Dare to dream</small></center>
+                        </Link>
+                    </div>
+                    <div className="col-lg border border-light mx-lg-3 text-light rounded-5 my-2">
+                        <Link to="/user" className='text-light'>
+                            <h6 className='text-center'>Take a Daily Trivia</h6>
+                            <p className='text-center fs-2'>Question of the Day</p>
+                            <center><small>Test your knowledge</small></center>
+                        </Link>
+                    </div>
+                    <div className="col-lg border border-light mx-lg-3 text-light rounded-5 my-2">
+                        <Link to="/user" className='text-light'>
+                            <h6 className='text-center'>Take your Knowledge</h6>
+                            <p className='text-center fs-2'>Answer Questions</p>
+                            <center><small>Dare to dream</small></center>
+                        </Link>
+                    </div>
+                </div>
+
+                <div className="row my-2 justify-content-center">
+                    <div className="col-lg-4 border border-light mx-lg-3 text-light rounded-5 my-2">
+                        <Link to="/user" className='text-light'>
+                            <h6 className='text-center'>Check your Progress</h6>
+                            <p className='text-center fs-2'>Score</p>
+                            <center><small>Dare to dream</small></center>
+                        </Link>
+                    </div>
+                    <div className="col-lg-4 border border-light mx-lg-3 text-light rounded-5 my-2">
+                        <Link to="/user" className='text-light'>
+                            <h6 className='text-center'>Take a Quiz</h6>
+                            <p className='text-center'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ab, odio.</p>
+                            <center><small>Dare to dream</small></center>
+                        </Link>
+                    </div>
+                </div>
+            </div>
         </div>
     </>
   )
