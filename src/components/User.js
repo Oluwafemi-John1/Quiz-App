@@ -91,7 +91,7 @@ const User = () => {
 
         </div>
 
-        <div className="container mt-2">
+        <div className="container mt-2" >
             <div className="container-fluid mt-lg-5">
                 <div className="row mx-auto my-2">
                     <div className="col-lg border border-light mx-lg-3 text-light rounded-5 my-2" id='containers'>

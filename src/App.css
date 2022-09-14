@@ -91,6 +91,13 @@ body{
 .navigation:hover,.navigation.active {
     width: 300px;
 }
+.navigation:hover ~ .container{
+    margin-left: 300px;
+    transition: 2s ease-in-out;
+}
+/* .container{
+    transition: 1s ease-in-out;
+} */
 .navigation ul{
     position: absolute;
     top: 0;
