@@ -46,7 +46,7 @@ p {
 
 @keyframes spooky {
   from {
-    transform: translatey(.15em) scaley(.95);
+    transform: translatey(.15em) scaleY(.6);
   }
   
   to {

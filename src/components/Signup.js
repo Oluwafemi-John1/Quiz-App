@@ -50,10 +50,10 @@ const Signup = () => {
         onSubmit:(values)=> {
             let allGame = Game.push(values)
             setGame(allGame)
-            console.log(Game);
+            // console.log(Game);
             localStorage.setItem("quiz", JSON.stringify(Game))
             Navigate("/signin")
-            console.log(values);
+            // console.log(values);
         },
 
         onReset:(values)=> {

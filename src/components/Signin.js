@@ -39,19 +39,19 @@ const Signin = () => {
 
         onSubmit:(values)=> {
             // console.log(values);
-           receive.find((items) => {
+           receive.filter((items) => {
                 if (items.email === values.email && items.password === values.password) {
-                    if (values.email !== "" && values.password !== "") {
-                        setuserLogin(userLogin.push(values))
-                        localStorage.login = JSON.stringify(userLogin)
-                        // console.log(localStorage.login);
-                        navigate("/user")
-                    } else {
-                        setmessage("Invalid login details")
+                    setuserLogin(userLogin.push(values))
+                    localStorage.login = JSON.stringify(userLogin)
+                    // console.log(localStorage.login);
+                    navigate("/user")
                     }
-                } else {
+                else if (values.email !== items.email   &&   values.password !== items.password) {
                     setmessage("Invalid login details")
                 }
+                else {
+                    setmessage("Invalid login details")
+                    }
             })
         },
 
