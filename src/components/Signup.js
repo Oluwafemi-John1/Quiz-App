@@ -8,15 +8,86 @@ import logoname from "../assets/Screenshot 2022-09-10 141710.png"
 
 const Signup = () => {
     const Navigate = useNavigate();
+    const [allUser, setallUser] = useState([]);
+    const [Error, setError] = useState("");
+
+    // Telling our local storage to set if nothing exists there before
     useEffect(()=>{
         if(localStorage.quiz) {
-            setGame(JSON.parse(localStorage.getItem("quiz")))
+            let detail = JSON.parse(localStorage.quiz)
+            setallUser(detail)
         } else {
-            setGame([])
+            setallUser([])
         }
     }, [])
 
-    const [Game, setGame] = useState([])
+    // Declaring regex values for yup validation
+    let lower = new RegExp(`(?=.*[a-z])`);
+    let upper = new RegExp(`(?=.*[A-Z])`);
+    let number = new RegExp(`(?=.*[0-9])`);
+    let length = new RegExp(`(?=.{8,})`);
+    
+    const formik = useFormik({
+        initialValues:{
+            firstname:"",
+            lastname:"",
+            email:"",
+            password:"",
+            score: "0",
+            balance: "0"
+        },
+
+        onSubmit:(values)=> {
+            let femi = JSON.parse(localStorage.getItem("quiz"));
+            setallUser(femi);
+
+            if (values) {
+                if (allUser <= 0) {
+                    setallUser(allUser.push(values));
+                    localStorage.setItem("quiz", JSON.stringify(allUser));
+                    Navigate("/signin")
+                } else {
+                    for (const a of allUser) {
+                        let User = values;
+                        if (a["email"] !== User.email) {
+                            setallUser(allUser.push(values));
+                            localStorage.setItem("quiz", JSON.stringify(allUser));
+                            Navigate("/signin");
+                        } else if (a["email"] === User.email) {
+                            let err = "Email already exists";
+                            setError(err);
+                        }
+                    }
+                }
+            }
+        },
+
+        onReset:(values)=> {
+            console.log(values);
+        },
+
+        validationSchema:yup.object({
+            firstname:yup
+            .string()
+            .matches(/^[\w]{2,}$/,"Must be at least 2 characters")
+            .required("This field is required"),
+            lastname:yup
+            .string()
+            .matches(/^[\w]{2,}$/,"Must be at least 2 characters")
+            .required("This field is required"),
+            email:yup
+            .string()
+            .email("Must be a valid email")
+            .required("This field is required"),
+            password:yup
+            .string()
+            .matches(lower,"Must include lowercase letter")
+            .matches(upper,"Must include uppercase letter")
+            .matches(number,"Must include a number")
+            .matches(length,"Must not be less than 8 characters")
+            .required("This field is required")
+        })
+    })
 
     const toggle = useRef();
     const i = useRef();
@@ -35,38 +106,6 @@ const Signup = () => {
         }
     }
 
-    let lower = new RegExp(`(?=.*[a-z])`);
-    let upper = new RegExp(`(?=.*[A-Z])`);
-    let number = new RegExp(`(?=.*[0-9])`);
-    let length = new RegExp(`(?=.{8,})`);
-    const formik = useFormik({
-        initialValues:{
-            firstname:"",
-            lastname:"",
-            email:"",
-            password:""
-        },
-
-        onSubmit:(values)=> {
-            let allGame = Game.push(values)
-            setGame(allGame)
-            // console.log(Game);
-            localStorage.setItem("quiz", JSON.stringify(Game))
-            Navigate("/signin")
-            // console.log(values);
-        },
-
-        onReset:(values)=> {
-            console.log(values);
-        },
-
-        validationSchema:yup.object({
-            firstname:yup.string().matches(/^[\w]{2,}$/,"Must be at least 2 characters").required("This field is required"),
-            lastname:yup.string().matches(/^[\w]{2,}$/,"Must be at least 2 characters").required("This field is required"),
-            email:yup.string().email("Must be a valid email").required("This field is required"),
-            password:yup.string().matches(lower,"Must include lowercase letter").matches(upper,"Must include uppercase letter").matches(number,"Must include a number").matches(length,"Must not be less than 8 characters").required("This field is required")
-        })
-    })
 
   return (
 		<>
@@ -84,6 +123,9 @@ const Signup = () => {
 				<div className="row mt-5">
 					<div className="col-lg-6 bg-light shadow mx-auto px-4 mt-5">
 						<h2 className="text-center my-2" style={{color:"#3E0748"}}>Sign Up</h2>
+                        <p>
+                            <b className="text-danger">{Error}</b>
+                        </p>
 						<form action="" onSubmit={formik.handleSubmit}>
 							<input
 								type="text"

@@ -17,7 +17,8 @@ function App() {
     <Router>
         <Routes>
             <Route path='/dashboard' element={user? <Dashboard/> :<Navigate to='/signin' />}/>
-            <Route element={user? <User/> :<Navigate to='/signin' />} path="/user"  />
+            {/* <Route element={user? <User/> :<Navigate to='/signin' />} path="/user"  /> */}
+            <Route path="/user" element={<User/>}/>
             <Route path="/" element={<Home/>}/>
             <Route path="/signin" element={<Signin/>}/>
             <Route path='/signup' element={<Signup/>}/>

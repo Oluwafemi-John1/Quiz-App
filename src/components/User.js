@@ -5,8 +5,8 @@ import logoname from "../assets/Screenshot 2022-09-10 141710.png"
 import profilePic from "../assets/blank-profile-picture-973460__340.webp"
 
 const User = () => {
-    let firstname = JSON.parse(localStorage.login)[0].email
-    // console.log(firstname);
+    let firstname = JSON.parse(localStorage.users).firstname
+    console.log(firstname);
     const navigation = useRef();
     const toggle = useRef();
     const navigate = useNavigate()
@@ -17,13 +17,20 @@ const User = () => {
     }
 
     const logout = () => {
-        localStorage.removeItem("login")
+        localStorage.removeItem("users")
         navigate('/signin')
     }
 
     let date = new Date();
     let dateCreated = date.toLocaleDateString();
     let timeCreated = date.toLocaleTimeString();
+
+    // const icon = document.querySelector('.icon'); 
+    //    // const clear = document.querySelector('.clear'); 
+    //    const search = document.querySelector('.search'); 
+    //    icon.onClick = function(){
+    //     search.classList.toggle('active')
+    //    }
   return (
     <>
         <nav>
@@ -31,6 +38,13 @@ const User = () => {
             <div id='logo'><Link to="/" className="brand-logo"><img style={{borderRadius:"35px"}} src={mylogo} width={42} alt="" /><img src={logoname} alt="" width={70} /></Link></div>
             <ul id="nav-mobile" className="right hide-on-med-and-down">
                 <li><Link to="/signin" onClick={logout} className='text-danger fw-bold'>Log out</Link></li>
+                {/* <li>
+                    <div class="search">
+                        <div class="icon"></div>
+                        <div class="input"><input type="text" placeholder="Search" id="mySearch"/></div>
+                        <span class="clear" onClick={document.getElementById('mySearch').value=''}></span>
+                    </div>
+                </li> */}
             </ul>
             </div>
         </nav>
