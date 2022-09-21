@@ -320,3 +320,6 @@ ul#nav-mobile {
     background: #999;
     transform: rotate(315deg);
 }
+select{
+    display: block;
+}

@@ -140,7 +140,7 @@ const User = () => {
                         </Link>
                     </div>
                     <div className="col-lg-4 border border-light mx-lg-3 text-light rounded-5 my-2" id='containers'>
-                        <Link to="/user" className='text-light'>
+                        <Link to="/admin" className='text-light'>
                             <h6 className='text-center'>Be an Admin</h6>
                             <p className='text-center fs-2'>Create your Quiz</p>
                             <center><small>Be a boss</small></center>
