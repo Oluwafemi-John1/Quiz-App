@@ -63,6 +63,11 @@ body {
         transform: translateX(40px);
         transition: 1s ease-in-out;
     }
+
+    #close-button {
+        transform: translateX(400px);
+        display: block;
+    }
 }
 
 
@@ -211,6 +216,13 @@ ul#nav-mobile {
     }
     #biglogo {
         width: 150px;
+    }
+    #close-button {
+        transform: translateX(170px);
+        display: block !important;
+    }
+    html,body {
+        overflow-x: hidden
     }
 }
 

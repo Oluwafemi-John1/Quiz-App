@@ -12,17 +12,11 @@ const Admin = () => {
     const [currentuser, setcurrentuser] = useState("");
     const [currentuserdetails, setcurrentuserdetails] = useState({});
     const [customer, setcustomer] = useState({});
-    const [Error, setError] = useState("");
-    const [admin, setadmin] = useState([])
+    // const [Error, setError] = useState("");
+    const [admin, setadmin] = useState([]);
     const navigate = useNavigate();
 
     let firstname = JSON.parse(localStorage.users).firstname
-
-
-    const logout = () => {
-        localStorage.removeItem("signinEmail")
-        navigate('/signin')
-    }
 
     useEffect (() => {
         if (localStorage.quiz && localStorage.signinEmail && localStorage.users) {
@@ -32,7 +26,7 @@ const Admin = () => {
             setcurrentuserdetails(JSON.parse(localStorage.users));
             let email = JSON.parse(localStorage.quiz).email;
             let index = JSON.parse(localStorage.quiz).findIndex(
-                (x) => x.email == email
+                (x) => x.email === email
             );
             setcustomer(AllUser[index]);
         } else {
@@ -57,9 +51,13 @@ const Admin = () => {
         onSubmit: (values) => {
             let email = currentuserdetails.email;
             let user = allUser;
-            let index = user.findIndex((x) => x.email ==email);
+            let index = user.findIndex((x) => x.email === email);
             let remain = parseInt(user[index].account) + Number(1);
-            setallUser((user))
+            setallUser((user[index].account = remain));
+            localStorage.setItem("quiz", JSON.stringify(allUser));
+            const newobj = [...admin, values];
+            setadmin(newobj);
+            localStorage.setItem("admin", JSON.stringify(newobj));
         },
 
         onReset: (values) => {
@@ -71,7 +69,7 @@ const Admin = () => {
             option1: yup.string().required("This field is required"),
             option2: yup.string().required("This field is required"),
             option3: yup.string().required("This field is required"),
-            answer: yup.string().required("This field is required"),
+            answer: yup.string().required("This field is required")
           }),
     })
 
@@ -117,25 +115,18 @@ const Admin = () => {
 								<h6 className="text-warning mb-5">
 									Click the button below to create your own questions.😊
 								</h6>
-								<button
-									type="button"
-									data-bs-toggle="modal"
-									data-bs-target="#money"
-									className="btn btn-success bg-success rounded-2"
-								>
-									Set Questions
+								<button type="button" data-bs-toggle="modal" data-bs-target="#money" className="btn btn-success bg-success rounded-2">
+                                    <i className="fa fa-plus-circle"></i>&nbsp;
+									<span>Set Questions</span>
 								</button>
 							</center>
 
-							<div
-								className="modal bg-success"
-								id="money"
-								data-bs-backdrop="static"
-							>
+							<div className="modal fade bg-success" tabIndex="-1" aria-hidden="true" id="money">
 								<div className="modal-dialog">
 									<div className="modal-content">
 										<form action="" className="mx-2" onSubmit={formik.handleSubmit}>
 											<div className="modal-body">
+                                                <button type='button' id='close-button' className="text-danger fs-5 p-2 rounded-2" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 												<label className="col-form-label text-dark">
 													Questions
 												</label>
@@ -222,6 +213,28 @@ const Admin = () => {
 							</div>
 						</div>
 					</div>
+                    
+                    <div className="mt-4">
+                      <div className="col-12">
+                        <center>
+                          <h4 className='text-decoration-underline'>QUESTIONS AVAILABLE</h4>
+                        </center>
+                        {admin.map((item, index) => (
+                          <div className="container">
+                            <h5>
+                              {index + 1}. {item.question}
+                            </h5>
+                            <p>
+                              <span>(a) {item.option1} </span>
+                              <br />
+                              <span>(b) {item.option2} </span>
+                              <br />
+                              <span>(c) {item.option3} </span>
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
 				</div>
 			</div>
 		</>

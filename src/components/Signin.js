@@ -70,7 +70,7 @@ const Signin = () => {
     const toggle = useRef();
     const i = useRef();
     const password = useRef();
-
+  console.log(password.current);
     const showHide = () => {
         if (password.current.type === 'password') {
             password.current.setAttribute('type','text');
@@ -124,6 +124,7 @@ const Signin = () => {
                             onChange={formik.handleChange}
                             value={formik.values.password}
                             onBlur={formik.handleBlur}
+                            ref={password}
 						/>
                         {formik.touched.password && <small className='text-danger'>{formik.errors.password}</small>}
                         
